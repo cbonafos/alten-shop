@@ -8,7 +8,16 @@
             <p-card class="block mb-2">
                 <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
                 <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+                <div class="text-sm text-600">{{ product.description }}</div>
 
+                <div class="flex flex-row align-items-center gap-2">
+                    <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+
+                    <div class="flex align-items-center gap-2">
+                        <p-tag [value]="getStockStatusText(product)" [severity]="getSeverity(product)"></p-tag>
+                    </div>
+                </div>
+                <span class="font-medium"> {{ product.price }} €</span>
                 <ng-template pTemplate="footer">
                     <div class="flex gap-3 mt-1">
                         <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"/>
