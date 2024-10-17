@@ -29,17 +29,9 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/primeflex/primeflex.css",
-              {
-                "input": "src/styles/dark.css",
-                "bundleName": "mdc-dark-deeppurple",
-                "inject": false
-              },
-              {
-                "input": "src/styles/light.css",
-                "bundleName": "mdc-light-deeppurple",
-                "inject": false
-              }
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css"
             ],
             "scripts": [
               "node_modules/quill/dist/quill.js",
