@@ -1,6 +1,6 @@
 <div class="card">
   <h2>Contactez-nous</h2>
-  <form (ngSubmit)="onSubmit()">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <div class="p-fluid">
       <div class="p-field">
         <label for="email">Email</label>
@@ -8,23 +8,50 @@
           id="email"
           type="email"
           pInputText
-          [(ngModel)]="email"
-          name="email"
+          formControlName="email"
           required
         />
+        <small
+          *ngIf="
+            contactForm.get('email')?.invalid &&
+            contactForm.get('email')?.touched
+          "
+          class="p-error"
+        >
+          Email invalide
+        </small>
       </div>
       <div class="p-field">
         <label for="message">Message</label>
         <textarea
           id="message"
           pInputTextarea
-          [(ngModel)]="message"
-          name="message"
+          formControlName="message"
           required
           rows="5"
         ></textarea>
+        <small
+          *ngIf="
+            contactForm.get('message')?.invalid &&
+            contactForm.get('message')?.touched
+          "
+          class="p-error"
+        >
+          Le message est requis et doit contenir moins de 300 caractères
+        </small>
       </div>
-      <button pButton type="submit" label="Envoyer"></button>
+      <button
+        pButton
+        type="submit"
+        label="Envoyer"
+        [disabled]="contactForm.invalid"
+      ></button>
     </div>
   </form>
+  <p-message
+    class="flex justify-content-center mt-2"
+    *ngIf="showSuccess"
+    severity="success"
+    text="Demande de contact envoyée avec succès"
+  ></p-message>
 </div>

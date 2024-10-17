@@ -25,8 +25,8 @@ Le site de e-commerce d'Alten a besoin de s'enrichir de nouvelles fonctionnalit�
 - Créer un nouveau point de menu dans la barre latérale ("Contact") - DONE
 - Créer une page "Contact" affichant un formulaire - DONE
 - Le formulaire doit permettre de saisir son email, un message et de cliquer sur "Envoyer" - DONE
-- Email et message doivent être obligatoirement remplis, message doit être inférieur à 300 caractères.
-- Quand le message a été envoyé, afficher un message à l'utilisateur : "Demande de contact envoyée avec succès".
+- Email et message doivent être obligatoirement remplis, message doit être inférieur à 300 caractères. - DONE
+- Quand le message a été envoyé, afficher un message à l'utilisateur : "Demande de contact envoyée avec succès". - DONE
 
 ### Bonus : 
 
