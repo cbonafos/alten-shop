@@ -3,3 +3,11 @@
     height: 100%;
     overflow: auto;
 }
+
+.card {
+    margin: 0 50px;
+}
+
+:host ::ng-deep .p-dataview .p-dataview-content {
+    padding: 0;
+}
