@@ -13,6 +13,7 @@ import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from "primeng/inputnumber";
 
 const emptyProduct: Product = {
   id: 0,
@@ -37,17 +38,18 @@ const emptyProduct: Product = {
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
   imports: [
+    CommonModule,
+    FormsModule,
     DataViewModule,
     CardModule,
     ButtonModule,
     DialogModule,
     ProductFormComponent,
     RatingModule,
-    FormsModule,
     TagModule,
-    CommonModule,
     InputTextModule,
-    DropdownModule
+    DropdownModule,
+    InputNumberModule
   ],
 })
 export class ProductListComponent implements OnInit {
@@ -57,6 +59,7 @@ export class ProductListComponent implements OnInit {
   public products: Product[] = [];
   public filteredProducts: Product[] = [];
   public categories: string[] = [];
+  public quantities: { [productId: number]: number } = {};
 
   public isDialogVisible = false;
   public isCreation = false;
@@ -72,6 +75,7 @@ export class ProductListComponent implements OnInit {
         this.products = products;
         this.filteredProducts = [...products];
         this.updateCategories();
+        this.initializeQuantities();
       },
       error: (err) => console.error('Erreur lors du chargement des produits:', err)
     });
@@ -81,6 +85,12 @@ export class ProductListComponent implements OnInit {
     this.categories = ['Toutes', ...new Set(this.products.map(product => product.category))];
   }
 
+  initializeQuantities() {
+    this.products.forEach(product => {
+      this.quantities[product.id] = 1;
+    });
+  }
+
   onCategoryChange(event: any) {
     const category = event.value;
     if (category === 'Toutes') {
@@ -88,6 +98,24 @@ export class ProductListComponent implements OnInit {
     } else {
       this.filteredProducts = this.products.filter(product => product.category === category);
     }
+  }
+
+  public addToCart(product: Product) {
+    const quantity = this.quantities[product.id] || 1;
+    this.cartService.addToCart(product, quantity);
+    this.quantities[product.id] = 1;
+  }
+
+  public updateQuantity(product: Product, quantity: number) {
+    if (quantity > 0) {
+      this.cartService.updateQuantity(product.id, quantity);
+    } else {
+      this.cartService.removeFromCart(product.id);
+    }
+  }
+
+  public getQuantityInCart(productId: number): number {
+    return this.cartService.getQuantityInCart(productId);
   }
 
   public onCreate() {
@@ -148,9 +176,5 @@ export class ProductListComponent implements OnInit {
 
   public getStockStatusText(product: Product): string {
     return this.getStatusInfo(product).text;
-  }
-
-  public addToCart(product: Product) {
-    this.cartService.addToCart(product);
   }
 }

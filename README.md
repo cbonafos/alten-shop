@@ -31,7 +31,7 @@ Le site de e-commerce d'Alten a besoin de s'enrichir de nouvelles fonctionnalit�
 ### Bonus : 
 
 - Ajouter un système de pagination et/ou de filtrage sur la liste des produits - DONE
-- On doit pouvoir visualiser et ajuster la quantité des produits depuis la liste et depuis le panier 
+- On doit pouvoir visualiser et ajuster la quantité des produits depuis la liste et depuis le panier - DONE (TODO vérif qté ajouté / qté disponible)
 
 ## Back-end
 

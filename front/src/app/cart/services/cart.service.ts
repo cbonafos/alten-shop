@@ -1,4 +1,4 @@
-import { Injectable, effect, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Product } from '../../products/data-access/product.model';
 
 export interface CartItem extends Product {
@@ -9,23 +9,8 @@ export interface CartItem extends Product {
   providedIn: 'root'
 })
 export class CartService {
-  private _cartItems = signal<CartItem[]>(this.loadCart());
+  private readonly _cartItems = signal<CartItem[]>([]);
   public readonly cartItems = this._cartItems.asReadonly();
-
-  constructor() {
-    effect(() => {
-      this.saveCart(this._cartItems());
-    });
-  }
-
-  private loadCart(): CartItem[] {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  }
-
-  private saveCart(cart: CartItem[]): void {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
 
   addToCart(product: Product, quantity: number = 1) {
     this._cartItems.update(items => {
@@ -54,6 +39,11 @@ export class CartService {
           : item
       ).filter(item => item.quantity > 0)
     );
+  }
+
+  getQuantityInCart(productId: number): number {
+    const item = this._cartItems().find(item => item.id === productId);
+    return item ? item.quantity : 0;
   }
 
   clearCart() {
