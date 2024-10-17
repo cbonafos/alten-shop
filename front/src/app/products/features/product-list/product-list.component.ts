@@ -3,6 +3,7 @@ import { Component, OnInit, inject, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { Product } from "app/products/data-access/product.model";
 import { ProductsService } from "app/products/data-access/products.service";
+import { CartService } from "app/cart/services/cart.service";
 import { ProductFormComponent } from "app/products/ui/product-form/product-form.component";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
@@ -33,10 +34,20 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, RatingModule, FormsModule, TagModule, CommonModule],
+  imports: [
+    DataViewModule,
+    CardModule,
+    ButtonModule,
+    DialogModule,
+    ProductFormComponent,
+    RatingModule,
+    FormsModule,
+    TagModule,
+    CommonModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
+  private readonly cartService = inject(CartService);
 
   public readonly products = this.productsService.products;
 
@@ -100,6 +111,10 @@ public getSeverity(product: Product): any {
 
 public getStockStatusText(product: Product): string {
   return this.getStatusInfo(product).text;
+}
+
+public addToCart(product: Product) {
+  this.cartService.addToCart(product);
 }
 
 }

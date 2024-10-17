@@ -20,6 +20,7 @@
                 <span class="font-medium"> {{ product.price }} €</span>
                 <ng-template pTemplate="footer">
                     <div class="flex gap-3 mt-1">
+                        <p-button (click)="addToCart(product)" label="Ajouter au panier" icon="pi pi-shopping-cart"></p-button>
                         <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"/>
                         <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
                     </div>
