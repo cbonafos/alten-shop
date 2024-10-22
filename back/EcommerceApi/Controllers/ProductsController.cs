@@ -44,11 +44,9 @@ public class ProductsController : ControllerBase
     {
         var products = await _productService.GetProductsAsync();
 
-        // Ajouter le nouveau produit
-        newProduct.Id = products.Max(p => p.Id) + 1; // Générer un nouvel ID
+        newProduct.Id = products.Max(p => p.Id) + 1;
         products.Add(newProduct);
 
-        // Sauvegarder les modifications dans le fichier JSON
         await _productService.SaveProductsAsync(products);
 
         return CreatedAtAction(nameof(GetProduct), new { id = newProduct.Id }, newProduct);
@@ -66,7 +64,6 @@ public class ProductsController : ControllerBase
             return NotFound();
         }
 
-        // Mettre à jour les champs du produit existant
         existingProduct.Name = updatedProduct.Name ?? existingProduct.Name;
         existingProduct.Description = updatedProduct.Description ?? existingProduct.Description;
         existingProduct.Price = updatedProduct.Price != 0 ? updatedProduct.Price : existingProduct.Price;
@@ -74,7 +71,6 @@ public class ProductsController : ControllerBase
         existingProduct.InventoryStatus = updatedProduct.InventoryStatus ?? existingProduct.InventoryStatus;
         existingProduct.UpdatedAt = updatedProduct.UpdatedAt;
 
-        // Sauvegarder les modifications dans le fichier JSON
         await _productService.SaveProductsAsync(products);
 
         return NoContent();
@@ -92,10 +88,8 @@ public class ProductsController : ControllerBase
             return NotFound();
         }
 
-        // Supprimer le produit
         products.Remove(product);
 
-        // Sauvegarder les modifications dans le fichier JSON
         await _productService.SaveProductsAsync(products);
 
         return NoContent();

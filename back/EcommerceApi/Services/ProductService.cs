@@ -7,7 +7,6 @@ public class ProductService
 
     public ProductService(IWebHostEnvironment env)
     {
-        // Chemin vers le fichier JSON dans le dossier Data
         _filePath = Path.Combine(env.ContentRootPath, "Data", "products.json");
     }
 
@@ -24,7 +23,6 @@ public class ProductService
         }
         catch (Exception ex)
         {
-            // Use a proper logging framework here
             Console.WriteLine($"Erreur lors de la désérialisation du fichier JSON : {ex.Message}");
         }
         return new List<Product>();
