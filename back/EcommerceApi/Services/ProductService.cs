@@ -7,11 +7,9 @@ public class ProductService
 
     public ProductService(IWebHostEnvironment env)
     {
-        // Chemin vers le fichier JSON dans le dossier Data
         _filePath = Path.Combine(env.ContentRootPath, "Data", "products.json");
     }
 
-    // Méthode pour lire les produits depuis le fichier JSON
     public async Task<List<Product>> GetProductsAsync()
     {
         try
@@ -31,8 +29,6 @@ public class ProductService
     }
 
 
-
-    // Méthode pour sauvegarder les produits dans le fichier JSON
     public async Task SaveProductsAsync(List<Product> products)
     {
         var jsonData = JsonSerializer.Serialize(products, new JsonSerializerOptions { WriteIndented = true });
