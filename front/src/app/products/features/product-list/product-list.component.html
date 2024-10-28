@@ -44,34 +44,23 @@
               <span class="text-2xl font-semibold">{{
                 product.price | currency : "EUR"
               }}</span>
-              <p-tag
-                [value]="getStockStatusText(product)"
-                [severity]="getSeverity(product)"
-              ></p-tag>
             </div>
-            <div class="flex flex-column align-items-start mb-2">
-              <div class="flex align-items-center">
-                <p-inputNumber 
-                  [(ngModel)]="quantities[product.id]" 
-                  [showButtons]="true" 
-                  inputId="stacked" 
-                  />
-                <!-- <p-inputNumber
-                  id="quantity-{{ product.id }}"
+            <p-tag
+            [value]="getStockStatusText(product)"
+            [severity]="getSeverity(product)"
+          ></p-tag>
+            <div class="flex flex-column align-items-start my-2">
+              <div class="flex align-items-center mb-1">
+                <p-inputNumber
                   [(ngModel)]="quantities[product.id]"
                   [showButtons]="true"
-                  buttonLayout="horizontal"
-                  spinnerMode="horizontal"
-                  decrementButtonClass="surface-600"
-                  incrementButtonClass="surface-600"
-                  incrementButtonIcon="pi pi-plus"
-                  decrementButtonIcon="pi pi-minus"
                   [min]="1"
                   [max]="product.quantity"
-                  [style]="{ width: '75px' }"
-                ></p-inputNumber> -->
+                  class="small-input"
+                  inputId="quantity"
+                />
               </div>
-              <span class="ml-2">Disponible : {{ product.quantity }}</span>
+              <span>Disponible : {{ product.quantity }}</span>
             </div>
             <ng-template pTemplate="footer">
               <div class="flex justify-content-between">

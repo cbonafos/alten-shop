@@ -11,3 +11,11 @@
 :host ::ng-deep .p-dataview .p-dataview-content {
     padding: 0;
 }
+
+:host ::ng-deep .small-input {
+    width: 120px;
+  } 
+  
+  :host ::ng-deep .p-inputnumber-input {
+    width: 100%;
+  }
